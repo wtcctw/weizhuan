@@ -4,42 +4,33 @@
 
 // Called when the user clicks on the browser action.
 
-function checkUrl(url) {
-  if (url == "http://www.baidu.com") {
-    chrome.tabs.executeScript(tab.id, {file: 'wezhuan.js'});
-  }
-}
 
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-  
-  chrome.browserAction.getTitle({}, function(title){
-
-    if (title.indexOf('offline') != -1) {
-      chrome.browserAction.setTitle({title: '微赚联盟online'});
-      chrome.browserAction.setIcon({path:'images/online.png'});
-      chrome.runtime.sendMessage('online', function(response){
-          document.write(response);
-      });
-    } else {
-      chrome.browserAction.setTitle({title: '微赚联盟offline'});
-      chrome.browserAction.setIcon({path:'images/offline.png'});
-      
-    }
-
-  });
+    var url = tab.url;
+    var tabId = tab.id;
+    chrome.browserAction.getTitle({}, function(title){
+      if (title.indexOf('offline') != -1 && url.indexOf("id=levbank:miss") != -1 ) {
+        chrome.browserAction.setTitle({title: '微赚联盟online'});
+        chrome.browserAction.setIcon({path:'images/online.png'});
+        chrome.tabs.sendMessage(tabId, {action:"online"}, function(response){});
+      } else {
+        chrome.browserAction.setTitle({title: '微赚联盟offline'});
+        chrome.browserAction.setIcon({path:'images/offline.png'});
+        chrome.tabs.sendMessage(tabId, {action:"offline"}, function(response){});
+      }
+    });
   
 });
 
-/*
+
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-	if( changeInfo.url == undefined)return;
-    var url = tab.url;
-    console.log("tab.url: "+tab.url);
-    console.log("changeInfo.url: "+tab.url);
-    if(url != undefined && url == "http://www.233p.com/plugin.php?id=levbank:miss") {
-        chrome.tabs.executeScript(tab.id, {file: 'wezhuan.js'});
-    }
-	
+  var url = tab.url;
+  chrome.browserAction.getTitle({}, function(title){
+  	if( title.indexOf('online')!=-1 && url.indexOf("id=levbank:miss") != -1) {
+      chrome.tabs.sendMessage(tabId,{action:"updated"},function(response){});
+    }	
+  });
 }); 
-*/
+
+

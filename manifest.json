@@ -12,6 +12,12 @@
   "background": {
     "scripts": ["background.js"]
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["weizhuan.js"]
+    }
+  ],
   "browser_action": {
     "default_title": "微赚联盟offline",
     "default_icon": "images/offline.png"
