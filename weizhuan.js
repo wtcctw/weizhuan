@@ -1,6 +1,10 @@
 var outBtn;
 var innerBtn;
 
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
 function begin() {
 	console.log("BEGIN!!!!");
 	outBtn = setInterval(function(){
@@ -10,7 +14,7 @@ function begin() {
 			btn.click();
 			console.log('outer button clicked!');
 		}
-	}, Math.ceil(Math.random()*10+2)*1000);
+	}, getRandomArbitrary(2000, 4000));
 
 	innerBtn = setInterval(function(){
 		var as = document.querySelectorAll('#get_orders a');

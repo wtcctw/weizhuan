@@ -1,25 +1,27 @@
 {
   "manifest_version": 2,
-  "name": "微赚联盟抢单",
-  "description": "微赚联盟抢单",
-  "version": "2.0",
+  "name": "233P",
+  "description": "233P",
+  "version": "2.1",
   "permissions": [
     "tabs", 
     "management",
-    "http://*/", 
-    "https://*/"
+    "webNavigation",
+    "http://*/*", 
+    "https://*/*"
   ],
   "background": {
     "scripts": ["background.js"]
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["weizhuan.js"]
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["weizhuan.js"],
+      "run_at": "document_start"
     }
   ],
   "browser_action": {
-    "default_title": "微赚联盟offline",
+    "default_title": "weizhuan0",
     "default_icon": "images/offline.png"
   }
 }
