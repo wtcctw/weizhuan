@@ -14,7 +14,7 @@ function begin() {
 			btn.click();
 			console.log('outer button clicked!');
 		}
-	}, getRandomArbitrary(2000, 4000));
+	}, getRandomArbitrary(3000, 5000));
 
 	innerBtn = setInterval(function(){
 		var as = document.querySelectorAll('#get_orders a');
